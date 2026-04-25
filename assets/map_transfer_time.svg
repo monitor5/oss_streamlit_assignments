@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-label="Transfer time map">
+  <rect width="900" height="360" fill="#f9fbfd"/>
+  <text x="44" y="52" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#172033">혼잡 시간 환승</text>
+  <text x="44" y="86" font-family="Arial, sans-serif" font-size="16" fill="#536173">아침 8시대에는 계단, 개찰구, 대기 줄까지 시간에 들어갑니다.</text>
+  <path d="M90 236 H370" stroke="#1f77b4" stroke-width="14" stroke-linecap="round"/>
+  <path d="M370 236 C468 236, 504 168, 594 168 H800" stroke="#8e44ad" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <circle cx="370" cy="236" r="31" fill="#ffffff" stroke="#172033" stroke-width="5"/>
+  <circle cx="370" cy="236" r="12" fill="#172033"/>
+  <g font-family="Arial, sans-serif" fill="#172033">
+    <text x="322" y="288" font-size="18" font-weight="700">부평 환승</text>
+    <text x="338" y="138" font-size="44" font-weight="700">3~5분</text>
+    <text x="298" y="166" font-size="15" fill="#536173">혼잡 시간대 현실적인 이동 여유</text>
+  </g>
+  <g fill="#ffd166">
+    <circle cx="458" cy="210" r="7"/>
+    <circle cx="484" cy="202" r="7"/>
+    <circle cx="512" cy="192" r="7"/>
+    <circle cx="538" cy="184" r="7"/>
+  </g>
+</svg>

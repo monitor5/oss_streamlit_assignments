@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="가정역에서 광운대역까지 인천2호선 환승 경로">
+  <rect width="960" height="360" fill="#fbfcff"/>
+  <text x="42" y="54" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#172033">가정역 → 광운대역</text>
+  <text x="42" y="86" font-family="Arial, sans-serif" font-size="16" fill="#586476">인천2호선 출발자는 주안 1호선 환승과 석남-온수 우회 경로를 비교합니다.</text>
+  <path d="M104 236 H300" stroke="#f6a800" stroke-width="14" stroke-linecap="round"/>
+  <path d="M300 236 H510" stroke="#1f6feb" stroke-width="14" stroke-linecap="round"/>
+  <path d="M104 236 C190 172, 272 158, 360 174 S512 236, 614 220" fill="none" stroke="#6979f8" stroke-width="11" stroke-linecap="round" stroke-dasharray="18 13"/>
+  <path d="M614 220 H838" stroke="#1f6feb" stroke-width="12" stroke-linecap="round" stroke-dasharray="18 13"/>
+  <g fill="#fff" stroke="#f6a800" stroke-width="5">
+    <circle cx="104" cy="236" r="18"/>
+    <circle cx="202" cy="236" r="18"/>
+    <circle cx="300" cy="236" r="18"/>
+  </g>
+  <g fill="#fff" stroke="#1f6feb" stroke-width="5">
+    <circle cx="510" cy="236" r="18"/>
+    <circle cx="700" cy="220" r="18"/>
+    <circle cx="838" cy="220" r="18"/>
+  </g>
+  <g fill="#fff" stroke="#6979f8" stroke-width="5">
+    <circle cx="360" cy="174" r="16"/>
+    <circle cx="614" cy="220" r="16"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#172033">
+    <text x="76" y="280">가정</text>
+    <text x="172" y="280">석남</text>
+    <text x="272" y="280">주안</text>
+    <text x="482" y="280">서울역</text>
+    <text x="672" y="260">회기</text>
+    <text x="798" y="180">광운대</text>
+    <text x="336" y="140">온수</text>
+    <text x="586" y="188">1호선 합류</text>
+  </g>
+</svg>

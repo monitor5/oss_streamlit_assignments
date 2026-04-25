@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="부평역에서 광운대역까지 1호선 일반과 급행 판단">
+  <rect width="960" height="360" fill="#f8fafc"/>
+  <text x="42" y="52" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#152033">부평역 → 광운대역</text>
+  <text x="42" y="84" font-family="Arial, sans-serif" font-size="16" fill="#5b6678">1호선 서울 방면이 기본입니다. 급행은 시간 단축용이지만 광운대역 직행으로 보면 안 됩니다.</text>
+
+  <path d="M112 220 H812" stroke="#1f6feb" stroke-width="14" stroke-linecap="round"/>
+  <g fill="#fff" stroke="#1f6feb" stroke-width="5">
+    <circle cx="112" cy="220" r="18"/>
+    <circle cx="286" cy="220" r="18"/>
+    <circle cx="454" cy="220" r="18"/>
+    <circle cx="628" cy="220" r="18"/>
+    <circle cx="812" cy="220" r="18"/>
+  </g>
+
+  <path d="M112 176 C230 148 360 148 486 176" fill="none" stroke="#f97316" stroke-width="10" stroke-linecap="round" stroke-dasharray="18 14"/>
+  <g fill="#fff" stroke="#f97316" stroke-width="4">
+    <circle cx="112" cy="176" r="13"/>
+    <circle cx="486" cy="176" r="13"/>
+  </g>
+
+  <path d="M486 176 V220" stroke="#94a3b8" stroke-width="4" stroke-dasharray="8 8"/>
+
+  <g font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#152033">
+    <text x="82" y="260">부평</text>
+    <text x="262" y="260">구로</text>
+    <text x="424" y="260">서울역</text>
+    <text x="602" y="260">회기</text>
+    <text x="772" y="260">광운대</text>
+    <text x="96" y="151" fill="#c2410c">급행 탑승 가능</text>
+    <text x="414" y="151" fill="#c2410c">구로/용산권</text>
+  </g>
+
+</svg>

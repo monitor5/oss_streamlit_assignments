@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-label="Transfer route map">
+  <rect width="900" height="360" fill="#fbfbf8"/>
+  <text x="44" y="52" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#1c2430">환승 전략 비교</text>
+  <text x="44" y="86" font-family="Arial, sans-serif" font-size="16" fill="#596579">빠른 경로와 덜 힘든 경로를 함께 비교합니다.</text>
+  <path d="M82 248 L214 248 L348 184 L492 184 L648 122 L804 122" fill="none" stroke="#0f9d58" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M82 284 L240 284 L390 284 L548 232 L804 232" fill="none" stroke="#db4437" stroke-width="8" stroke-linecap="round" stroke-dasharray="18 16"/>
+  <g fill="#ffffff" stroke="#0f9d58" stroke-width="5">
+    <circle cx="110" cy="248" r="15"/>
+    <circle cx="348" cy="184" r="15"/>
+    <circle cx="492" cy="184" r="15"/>
+    <circle cx="648" cy="122" r="15"/>
+    <circle cx="784" cy="122" r="15"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#1c2430">
+    <text x="84" y="224">인천</text>
+    <text x="310" y="158">부평</text>
+    <text x="456" y="158">온수</text>
+    <text x="600" y="96">고터</text>
+    <text x="752" y="96">강남</text>
+  </g>
+</svg>

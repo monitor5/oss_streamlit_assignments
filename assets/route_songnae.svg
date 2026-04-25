@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="송내역에서 광운대역까지 1호선 경로">
+  <rect width="960" height="360" fill="#fffdf7"/>
+  <text x="42" y="54" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#1c2430">송내역 → 광운대역</text>
+  <text x="42" y="86" font-family="Arial, sans-serif" font-size="16" fill="#5f6b7a">송내역은 1호선 역입니다. 서울 방면 열차와 광운대역 정차 여부를 확인합니다.</text>
+  <path d="M112 238 H820" stroke="#1f6feb" stroke-width="14" stroke-linecap="round"/>
+  <g fill="#fff" stroke="#1f6feb" stroke-width="5">
+    <circle cx="112" cy="238" r="18"/>
+    <circle cx="240" cy="238" r="18"/>
+    <circle cx="390" cy="238" r="18"/>
+    <circle cx="552" cy="238" r="18"/>
+    <circle cx="688" cy="238" r="18"/>
+    <circle cx="820" cy="238" r="18"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#1c2430">
+    <text x="84" y="198">송내</text>
+    <text x="214" y="278">부천</text>
+    <text x="364" y="278">구로</text>
+    <text x="522" y="278">서울역</text>
+    <text x="660" y="278">회기</text>
+    <text x="780" y="198">광운대</text>
+  </g>
+</svg>

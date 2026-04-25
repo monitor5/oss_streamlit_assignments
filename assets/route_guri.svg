@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="구리역에서 광운대역까지 경의중앙선 회기 환승 경로">
+  <rect width="960" height="360" fill="#fbfaf8"/>
+  <text x="42" y="54" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#18202f">구리역 → 광운대역</text>
+  <text x="42" y="86" font-family="Arial, sans-serif" font-size="16" fill="#596579">광운대 목적지는 경의중앙선 회기 환승이 짧고 자연스럽습니다.</text>
+  <path d="M112 236 H560" stroke="#36a852" stroke-width="13" stroke-linecap="round"/>
+  <path d="M112 284 V186" stroke="#e85d75" stroke-width="10" stroke-linecap="round"/>
+  <path d="M560 236 H816" stroke="#1f6feb" stroke-width="13" stroke-linecap="round"/>
+  <g fill="#fff" stroke="#36a852" stroke-width="5">
+    <circle cx="112" cy="236" r="18"/>
+    <circle cx="282" cy="236" r="18"/>
+    <circle cx="430" cy="236" r="18"/>
+    <circle cx="560" cy="236" r="18"/>
+  </g>
+  <circle cx="690" cy="236" r="18" fill="#fff" stroke="#1f6feb" stroke-width="5"/>
+  <circle cx="816" cy="236" r="18" fill="#fff" stroke="#1f6feb" stroke-width="5"/>
+  <g font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#18202f">
+    <text x="84" y="194">구리</text>
+    <text x="254" y="276">상봉</text>
+    <text x="398" y="276">청량리</text>
+    <text x="532" y="194">회기</text>
+    <text x="660" y="276">석계</text>
+    <text x="776" y="194">광운대</text>
+  </g>
+</svg>

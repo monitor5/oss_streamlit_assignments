@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="일산역에서 광운대역까지 경의중앙선 회기 환승 경로">
+  <rect width="960" height="360" fill="#f8fbf8"/>
+  <text x="42" y="54" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#172033">일산역 → 광운대역</text>
+  <text x="42" y="86" font-family="Arial, sans-serif" font-size="16" fill="#556271">경의중앙선으로 회기역까지 이동한 뒤 1호선으로 환승합니다.</text>
+  <path d="M104 242 C220 180, 336 186, 454 222 S646 268, 756 198" fill="none" stroke="#36a852" stroke-width="13" stroke-linecap="round"/>
+  <path d="M756 198 H842" stroke="#1f6feb" stroke-width="13" stroke-linecap="round"/>
+  <g fill="#fff" stroke="#36a852" stroke-width="5">
+    <circle cx="104" cy="242" r="18"/>
+    <circle cx="306" cy="196" r="18"/>
+    <circle cx="520" cy="238" r="18"/>
+    <circle cx="756" cy="198" r="18"/>
+  </g>
+  <circle cx="842" cy="198" r="18" fill="#fff" stroke="#1f6feb" stroke-width="5"/>
+  <g font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#172033">
+    <text x="76" y="286">일산</text>
+    <text x="276" y="160">대곡</text>
+    <text x="486" y="282">용산</text>
+    <text x="728" y="158">회기</text>
+    <text x="802" y="158">광운대</text>
+  </g>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="운정중앙역에서 광운대역까지 저렴한 경로와 빠른 경로 비교">
+  <rect width="960" height="360" fill="#f8fbf9"/>
+  <text x="42" y="54" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#172033">운정중앙역 → 광운대역</text>
+  <text x="42" y="86" font-family="Arial, sans-serif" font-size="16" fill="#586476">저렴한 일반 전철 경로와 빠른 GTX-A 경로의 시간/비용 차이를 비교합니다.</text>
+  <path d="M104 236 C226 164, 356 166, 486 218 S666 268, 808 202" fill="none" stroke="#36a852" stroke-width="12" stroke-linecap="round"/>
+  <path d="M104 150 H444" stroke="#9d4edd" stroke-width="14" stroke-linecap="round"/>
+  <path d="M444 150 C538 174, 610 208, 696 230 S788 232, 846 202" fill="none" stroke="#1f6feb" stroke-width="11" stroke-linecap="round" stroke-dasharray="18 13"/>
+  <g fill="#fff" stroke="#36a852" stroke-width="5">
+    <circle cx="104" cy="236" r="18"/>
+    <circle cx="278" cy="174" r="18"/>
+    <circle cx="486" cy="218" r="18"/>
+    <circle cx="686" cy="238" r="18"/>
+  </g>
+  <g fill="#fff" stroke="#9d4edd" stroke-width="5">
+    <circle cx="104" cy="150" r="18"/>
+    <circle cx="260" cy="150" r="18"/>
+    <circle cx="444" cy="150" r="18"/>
+  </g>
+  <circle cx="846" cy="202" r="18" fill="#fff" stroke="#1f6feb" stroke-width="5"/>
+  <g font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#172033">
+    <text x="58" y="276">운정/야당</text>
+    <text x="248" y="138">대곡</text>
+    <text x="458" y="258">용산</text>
+    <text x="658" y="278">회기</text>
+    <text x="70" y="116">운정중앙</text>
+    <text x="230" y="116">연신내</text>
+    <text x="418" y="116">서울역</text>
+    <text x="806" y="166">광운대</text>
+  </g>
+</svg>

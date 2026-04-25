@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-label="Station choice map">
+  <rect width="900" height="360" fill="#f7fafc"/>
+  <text x="44" y="52" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#172033">출발역 확인</text>
+  <text x="44" y="86" font-family="Arial, sans-serif" font-size="16" fill="#536173">가까운 역과 첫 환승역을 먼저 잡아야 전체 경로가 흔들리지 않습니다.</text>
+  <path d="M88 236 C210 150, 318 156, 430 212 S668 282, 806 146" fill="none" stroke="#2f80ed" stroke-width="14" stroke-linecap="round"/>
+  <path d="M140 100 C250 210, 396 230, 522 160 S718 86, 790 220" fill="none" stroke="#f2994a" stroke-width="12" stroke-linecap="round"/>
+  <g font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#172033">
+    <circle cx="120" cy="214" r="18" fill="#ffffff" stroke="#2f80ed" stroke-width="6"/>
+    <text x="84" y="265">송내</text>
+    <circle cx="404" cy="204" r="18" fill="#ffffff" stroke="#2f80ed" stroke-width="6"/>
+    <text x="360" y="250">부평</text>
+    <circle cx="610" cy="246" r="18" fill="#ffffff" stroke="#2f80ed" stroke-width="6"/>
+    <text x="566" y="296">고속터미널</text>
+    <circle cx="766" cy="172" r="18" fill="#ffffff" stroke="#2f80ed" stroke-width="6"/>
+    <text x="730" y="126">강남</text>
+  </g>
+</svg>

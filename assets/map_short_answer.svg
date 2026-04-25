@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-label="Worst transfer section map">
+  <rect width="900" height="360" fill="#f8faf7"/>
+  <text x="44" y="52" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#172033">나만의 최악 환승 구간</text>
+  <text x="44" y="86" font-family="Arial, sans-serif" font-size="16" fill="#536173">실제 경험을 떠올려 혼잡, 걷는 거리, 대기 시간을 함께 설명합니다.</text>
+  <path d="M98 250 H266 V160 H438 V250 H612 V160 H794" fill="none" stroke="#6c5ce7" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#ffffff" stroke="#6c5ce7" stroke-width="5">
+    <circle cx="98" cy="250" r="17"/>
+    <circle cx="266" cy="160" r="17"/>
+    <circle cx="438" cy="250" r="17"/>
+    <circle cx="612" cy="160" r="17"/>
+    <circle cx="794" cy="160" r="17"/>
+  </g>
+  <path d="M244 142 L288 178 M244 178 L288 142" stroke="#e63946" stroke-width="7" stroke-linecap="round"/>
+  <path d="M590 142 L634 178 M590 178 L634 142" stroke="#e63946" stroke-width="7" stroke-linecap="round"/>
+  <g font-family="Arial, sans-serif" fill="#172033" font-size="15" font-weight="700">
+    <text x="70" y="292">출발</text>
+    <text x="220" y="124">혼잡</text>
+    <text x="400" y="292">대기</text>
+    <text x="566" y="124">긴 이동</text>
+    <text x="762" y="124">도착</text>
+  </g>
+</svg>

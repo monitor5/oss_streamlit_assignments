@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="안산역에서 광운대역까지 4호선 창동 환승 경로">
+  <rect width="960" height="360" fill="#fffdf8"/>
+  <text x="42" y="54" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#1c2430">안산역 → 광운대역</text>
+  <text x="42" y="86" font-family="Arial, sans-serif" font-size="16" fill="#5c6675">4호선 서울 방면으로 이동해 창동역에서 1호선 광운대 방향으로 환승합니다.</text>
+  <path d="M100 248 C220 188, 324 188, 440 228 S624 270, 724 202" fill="none" stroke="#4ea3f1" stroke-width="13" stroke-linecap="round"/>
+  <path d="M724 202 H846" stroke="#1f6feb" stroke-width="13" stroke-linecap="round"/>
+  <g fill="#fff" stroke="#4ea3f1" stroke-width="5">
+    <circle cx="100" cy="248" r="18"/>
+    <circle cx="284" cy="198" r="18"/>
+    <circle cx="500" cy="238" r="18"/>
+    <circle cx="724" cy="202" r="18"/>
+  </g>
+  <circle cx="846" cy="202" r="18" fill="#fff" stroke="#1f6feb" stroke-width="5"/>
+  <g font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#1c2430">
+    <text x="72" y="290">안산</text>
+    <text x="252" y="162">금정</text>
+    <text x="466" y="282">동대문</text>
+    <text x="696" y="160">창동</text>
+    <text x="806" y="160">광운대</text>
+  </g>
+</svg>
