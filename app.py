@@ -78,11 +78,34 @@ def initialize_state() -> None:
         "logged_in": False,
         "username": "",
         "quiz_submitted": False,
+        "quiz_reset_version": 0,
         "score": 0,
         "results": [],
     }
     for key, value in defaults.items():
         st.session_state.setdefault(key, value)
+
+
+def get_answer_key(question: dict) -> str:
+    return f"answer_{st.session_state.quiz_reset_version}_{question['id']}"
+
+
+def is_question_answered(question: dict) -> bool:
+    answer = st.session_state.get(get_answer_key(question))
+
+    return bool(str(answer or "").strip())
+
+
+def get_progress_questions(quiz_data: list[dict]) -> list[dict]:
+    return [question for question in quiz_data if question["type"] != "time_slider"]
+
+
+def get_unanswered_questions(quiz_data: list[dict]) -> list[tuple[int, dict]]:
+    return [
+        (index, question)
+        for index, question in enumerate(quiz_data, start=1)
+        if question["type"] != "time_slider" and not is_question_answered(question)
+    ]
 
 
 def render_student_header() -> None:
@@ -195,7 +218,7 @@ def calculate_results(quiz_data: list[dict]) -> tuple[int, list[dict]]:
     results = []
 
     for question in quiz_data:
-        key = f"answer_{question['id']}"
+        key = get_answer_key(question)
         user_answer = st.session_state.get(key, "")
         correct = is_correct_answer(question, user_answer)
 
@@ -275,7 +298,7 @@ def render_question(question: dict, index: int) -> None:
     else:
         st.warning(f"이미지를 찾을 수 없습니다: {question['image']}")
 
-    key = f"answer_{question['id']}"
+    key = get_answer_key(question)
     if question["type"] == "multiple_choice":
         st.radio(
             "답을 선택하세요.",
@@ -328,9 +351,6 @@ def render_results(total_questions: int) -> None:
     score = st.session_state.score
     title, message = get_result_message(score)
 
-    st.divider()
-    st.subheader("최종 결과")
-
     col1, col2 = st.columns([1, 2])
     with col1:
         st.metric("총점", f"{score} / {total_questions}")
@@ -357,6 +377,20 @@ def render_results(total_questions: int) -> None:
             render_source_links(result["source_links"])
 
 
+@st.dialog("최종 결과", width="large")
+def render_results_dialog(quiz_data: list[dict]) -> None:
+    render_results(len(quiz_data))
+
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("결과 창 닫기", key="close_result_dialog", width="stretch"):
+            st.rerun()
+    with col2:
+        if st.button("다시 풀기", key="retry_quiz_from_dialog", width="stretch"):
+            reset_quiz()
+            st.rerun()
+
+
 def render_quiz(quiz_data: list[dict]) -> None:
     st.subheader("퀴즈")
     question_types = sorted({ANSWER_TYPE_LABELS.get(question["type"], question["type"]) for question in quiz_data})
@@ -364,22 +398,18 @@ def render_quiz(quiz_data: list[dict]) -> None:
         f"{', '.join(question_types)} 문항이 섞여 있습니다. 모든 문항은 1점이며, 참여형 서술 문항은 공백이 아니면 점수로 인정합니다."
     )
 
-    with st.form("quiz_form"):
-        for index, question in enumerate(quiz_data, start=1):
-            render_question(question, index)
-            st.divider()
+    for index, question in enumerate(quiz_data, start=1):
+        render_question(question, index)
+        st.divider()
 
-        submitted = st.form_submit_button("결과 보기")
+    submitted = st.button("결과 보기", type="primary")
 
     if submitted:
-        unanswered = [
-            str(index)
-            for index, question in enumerate(quiz_data, start=1)
-            if question["type"] != "time_slider" and not st.session_state.get(f"answer_{question['id']}")
-        ]
+        unanswered = get_unanswered_questions(quiz_data)
 
         if unanswered:
-            st.warning(f"아직 답하지 않은 문제가 있습니다: {', '.join(unanswered)}번")
+            unanswered_numbers = ", ".join(str(index) for index, _ in unanswered)
+            st.warning(f"아직 답하지 않은 문제가 있습니다: {unanswered_numbers}번")
             return
 
         score, results = calculate_results(quiz_data)
@@ -387,18 +417,27 @@ def render_quiz(quiz_data: list[dict]) -> None:
         st.session_state.results = results
         st.session_state.quiz_submitted = True
         st.balloons()
+        render_results_dialog(quiz_data)
 
     if st.session_state.quiz_submitted:
-        render_results(len(quiz_data))
+        st.success("결과가 계산되었습니다. 아래 버튼으로 결과 창을 다시 열거나 퀴즈를 초기화할 수 있습니다.")
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("결과 창 열기", key="open_result_dialog", width="stretch"):
+                render_results_dialog(quiz_data)
+        with col2:
+            if st.button("다시 풀기", key="retry_quiz", width="stretch"):
+                reset_quiz()
+                st.rerun()
 
-        if st.button("다시 풀기"):
-            reset_quiz(quiz_data)
-            st.rerun()
 
+def reset_quiz() -> None:
+    st.session_state.quiz_reset_version = st.session_state.get("quiz_reset_version", 0) + 1
 
-def reset_quiz(quiz_data: list[dict]) -> None:
-    for question in quiz_data:
-        st.session_state.pop(f"answer_{question['id']}", None)
+    for key in list(st.session_state.keys()):
+        if str(key).startswith("answer_"):
+            st.session_state.pop(key, None)
+
     st.session_state.quiz_submitted = False
     st.session_state.score = 0
     st.session_state.results = []
@@ -408,18 +447,34 @@ def render_sidebar(quiz_data: list[dict]) -> None:
     st.sidebar.header("앱 정보")
     st.sidebar.write(f"로그인 사용자: {st.session_state.username}")
     st.sidebar.write(f"문항 수: {len(quiz_data)}개")
+
+    unanswered = get_unanswered_questions(quiz_data)
+    progress_questions = get_progress_questions(quiz_data)
+    answered_count = len(progress_questions) - len(unanswered)
+    progress_total = len(progress_questions)
+    progress = answered_count / progress_total if progress_total else 0
+
+    st.sidebar.subheader("풀이 진행률")
+    st.sidebar.progress(progress, text=f"{answered_count} / {progress_total}문항 완료")
+
+    if unanswered:
+        unanswered_labels = [f"Q{index}. {question['region']}" for index, question in unanswered]
+        st.sidebar.warning("미답변 문항: " + ", ".join(unanswered_labels))
+    else:
+        st.sidebar.success("모든 문항에 답했습니다.")
+
     st.sidebar.caption("퀴즈 데이터는 quiz_data.json에서 읽고 @st.cache_data로 캐싱합니다.")
     st.sidebar.caption("회원가입 정보는 users.json에 저장되어 서버 재시작 후에도 유지됩니다.")
 
     if st.sidebar.button("퀴즈 데이터 캐시 새로고침"):
         load_quiz_data.clear()
-        reset_quiz(quiz_data)
+        reset_quiz()
         st.rerun()
 
     if st.sidebar.button("로그아웃"):
         st.session_state.logged_in = False
         st.session_state.username = ""
-        reset_quiz(quiz_data)
+        reset_quiz()
         st.rerun()
 
 
@@ -438,8 +493,8 @@ def main() -> None:
         return
 
     quiz_data = load_quiz_data(str(QUIZ_FILE), QUIZ_FILE.stat().st_mtime_ns)
-    render_sidebar(quiz_data)
     render_quiz(quiz_data)
+    render_sidebar(quiz_data)
 
 
 if __name__ == "__main__":
