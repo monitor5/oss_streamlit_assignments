@@ -218,6 +218,12 @@ def render_auth() -> None:
 
         if submitted:
             login_username = username.strip()
+            log_button_click(
+                "로그인",
+                "auth.login",
+                widget_type="form_submit_button",
+                username_attempt=login_username or "blank",
+            )
             log_event(
                 "form_submitted",
                 username=get_log_username(),
@@ -244,8 +250,13 @@ def render_auth() -> None:
             signup_submitted = st.form_submit_button("회원가입")
 
         if signup_submitted:
-            ok, message = register_user(new_username, new_password, password_confirm)
             signup_username = new_username.strip()
+            log_button_click(
+                "회원가입",
+                "auth.signup",
+                widget_type="form_submit_button",
+                username_attempt=signup_username or "blank",
+            )
             log_event(
                 "form_submitted",
                 username=get_log_username(),
@@ -253,6 +264,7 @@ def render_auth() -> None:
                 label="회원가입",
                 username_attempt=signup_username or "blank",
             )
+            ok, message = register_user(new_username, new_password, password_confirm)
             if ok:
                 log_event("signup_success", username=signup_username)
                 st.success(message)
