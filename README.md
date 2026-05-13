@@ -69,17 +69,22 @@ streamlit run main.py
 ## EC2 배포 실행 및 로그 확인
 
 EC2에서는 앱 실행 로그를 `streamlit.log`에 남기고, 영상 촬영 중 `tail -f`로 실시간 확인합니다.
+80 포트는 관리자 권한이 필요한 포트이므로 `sudo`를 붙여 실행합니다.
 
 ```bash
-nohup venv/bin/python -m streamlit run main.py \
-  --server.port 8501 \
+sudo nohup venv/bin/python -m streamlit run main.py \
+  --server.port 80 \
   --server.address 0.0.0.0 \
   > streamlit.log 2>&1 &
 
 tail -f streamlit.log
 ```
 
-로그에는 로그인, 답안 입력/선택, 결과 보기, 캐시 새로고침, 로그아웃 같은 사용자 조작 이벤트가 기록됩니다.
+접속 주소는 포트 번호 없이 `http://<EC2_PUBLIC_IP>` 형식입니다.
+접속이 되지 않으면 EC2 보안 그룹의 인바운드 규칙에 HTTP 80 포트가 열려 있는지 확인합니다.
+
+로그에는 화면 재렌더링, 로그인/회원가입 제출, 버튼 클릭, 답안 입력/선택, 결과 보기, 캐시 새로고침, 로그아웃 같은 사용자 조작 이벤트가 기록됩니다.
+비밀번호와 답안 원문은 기록하지 않고, 위젯 유형과 문항 번호, 입력 길이 같은 확인용 메타데이터만 남깁니다.
 
 ## 기본 로그인 정보
 
