@@ -1,5 +1,7 @@
 import hashlib
 import json
+import logging
+import sys
 from pathlib import Path
 
 import pandas as pd
@@ -20,6 +22,22 @@ ANSWER_TYPE_LABELS = {
     "short_answer": "단답형",
     "time_slider": "시간 추정형",
 }
+
+LOGGER = logging.getLogger("commute_quiz")
+if not LOGGER.handlers:
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
+    LOGGER.addHandler(handler)
+LOGGER.setLevel(logging.INFO)
+LOGGER.propagate = False
+
+
+def log_event(action: str, **details: object) -> None:
+    detail_text = " ".join(f"{key}={value}" for key, value in details.items())
+    if detail_text:
+        LOGGER.info("%s %s", action, detail_text)
+        return
+    LOGGER.info(action)
 
 
 def hash_password(password: str) -> str:
@@ -81,9 +99,14 @@ def initialize_state() -> None:
         "quiz_reset_version": 0,
         "score": 0,
         "results": [],
+        "app_started_logged": False,
     }
     for key, value in defaults.items():
         st.session_state.setdefault(key, value)
+
+    if not st.session_state.app_started_logged:
+        log_event("app_start", page=APP_TITLE)
+        st.session_state.app_started_logged = True
 
 
 def get_answer_key(question: dict) -> str:
@@ -164,11 +187,14 @@ def render_auth() -> None:
             submitted = st.form_submit_button("로그인")
 
         if submitted:
+            login_username = username.strip()
             if login_user(username, password):
                 st.session_state.logged_in = True
-                st.session_state.username = username
+                st.session_state.username = login_username
+                log_event("login_success", username=login_username)
                 st.success("로그인 성공! 퀴즈 화면으로 이동합니다.")
                 st.rerun()
+            log_event("login_failed", username=login_username or "blank")
             st.error("아이디 또는 비밀번호가 올바르지 않습니다.")
 
     with signup_tab:
@@ -182,9 +208,12 @@ def render_auth() -> None:
 
         if signup_submitted:
             ok, message = register_user(new_username, new_password, password_confirm)
+            signup_username = new_username.strip()
             if ok:
+                log_event("signup_success", username=signup_username)
                 st.success(message)
                 st.rerun()
+            log_event("signup_failed", username=signup_username or "blank", reason=message)
             st.error(message)
 
 
@@ -211,6 +240,18 @@ def get_correct_answer_text(question: dict) -> str:
         return question["answer"]
 
     return "서술형 참여 점수"
+
+
+def log_answer_change(question: dict, index: int, key: str) -> None:
+    answer = st.session_state.get(key, "")
+    log_event(
+        "answer_changed",
+        username=st.session_state.get("username", ""),
+        question=f"Q{index}",
+        question_id=question["id"],
+        answer_type=question["type"],
+        answer_length=len(str(answer)),
+    )
 
 
 def calculate_results(quiz_data: list[dict]) -> tuple[int, list[dict]]:
@@ -305,6 +346,8 @@ def render_question(question: dict, index: int) -> None:
             question["options"],
             index=None,
             key=key,
+            on_change=log_answer_change,
+            args=(question, index, key),
         )
     elif question["type"] == "time_slider":
         st.slider(
@@ -315,18 +358,24 @@ def render_question(question: dict, index: int) -> None:
             step=question.get("step", 5),
             format=f"%d{question.get('unit', '분')}",
             key=key,
+            on_change=log_answer_change,
+            args=(question, index, key),
         )
     elif question.get("accepted_keywords"):
         st.text_input(
             "짧게 답을 입력하세요.",
             key=key,
             placeholder="역 이름을 입력하세요.",
+            on_change=log_answer_change,
+            args=(question, index, key),
         )
     else:
         st.text_area(
             "본인 판단을 1문장 이상 적어 주세요.",
             key=key,
             placeholder="예: 배차 간격과 환승 동선을 고려하면 이 경로를 선택하겠습니다...",
+            on_change=log_answer_change,
+            args=(question, index, key),
         )
 
 
@@ -384,9 +433,11 @@ def render_results_dialog(quiz_data: list[dict]) -> None:
     col1, col2 = st.columns(2)
     with col1:
         if st.button("결과 창 닫기", key="close_result_dialog", width="stretch"):
+            log_event("result_dialog_close", username=st.session_state.username)
             st.rerun()
     with col2:
         if st.button("다시 풀기", key="retry_quiz_from_dialog", width="stretch"):
+            log_event("quiz_retry", username=st.session_state.username, source="dialog")
             reset_quiz()
             st.rerun()
 
@@ -409,6 +460,12 @@ def render_quiz(quiz_data: list[dict]) -> None:
 
         if unanswered:
             unanswered_numbers = ", ".join(str(index) for index, _ in unanswered)
+            log_event(
+                "result_submit_blocked",
+                username=st.session_state.username,
+                unanswered_count=len(unanswered),
+                unanswered_questions=unanswered_numbers,
+            )
             st.warning(f"아직 답하지 않은 문제가 있습니다: {unanswered_numbers}번")
             return
 
@@ -416,6 +473,7 @@ def render_quiz(quiz_data: list[dict]) -> None:
         st.session_state.score = score
         st.session_state.results = results
         st.session_state.quiz_submitted = True
+        log_event("result_submit_success", username=st.session_state.username, score=score, total=len(quiz_data))
         st.balloons()
         render_results_dialog(quiz_data)
 
@@ -424,9 +482,11 @@ def render_quiz(quiz_data: list[dict]) -> None:
         col1, col2 = st.columns(2)
         with col1:
             if st.button("결과 창 열기", key="open_result_dialog", width="stretch"):
+                log_event("result_dialog_open", username=st.session_state.username, score=st.session_state.score)
                 render_results_dialog(quiz_data)
         with col2:
             if st.button("다시 풀기", key="retry_quiz", width="stretch"):
+                log_event("quiz_retry", username=st.session_state.username, source="main")
                 reset_quiz()
                 st.rerun()
 
@@ -468,10 +528,12 @@ def render_sidebar(quiz_data: list[dict]) -> None:
 
     if st.sidebar.button("퀴즈 데이터 캐시 새로고침"):
         load_quiz_data.clear()
+        log_event("quiz_cache_refresh", username=st.session_state.username)
         reset_quiz()
         st.rerun()
 
     if st.sidebar.button("로그아웃"):
+        log_event("logout", username=st.session_state.username)
         st.session_state.logged_in = False
         st.session_state.username = ""
         reset_quiz()

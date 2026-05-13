@@ -4,8 +4,7 @@
 
 Streamlit 중간고사 대체 과제입니다.
 
-배포 의무는 없으나, 제 테스트 간편화를 위하여 배포하였습니다.
-[Streamlit Cloud](https://ossappassignments-eg5k6g622ay8qm5fv7kigt.streamlit.app/)
+EC2 배포 과제 기준에 맞춰 브라우저에서 앱을 조작하는 동안 EC2 터미널에 관련 로그가 함께 출력되도록 구성했습니다.
 
 이 프로젝트는 인천·경기권 출발지에서 광운대역까지 통학할 때의 경로 판단을 퀴즈로 풀어보는 웹 애플리케이션입니다. 단순히 노선 이름을 맞히는 방식이 아니라, 급행/일반열차, 환승역, 배차 리스크, 요금 부담, 소요 시간 범위를 함께 고려하도록 설계했습니다.
 
@@ -67,6 +66,21 @@ pip install -r requirements.txt
 streamlit run main.py
 ```
 
+## EC2 배포 실행 및 로그 확인
+
+EC2에서는 앱 실행 로그를 `streamlit.log`에 남기고, 영상 촬영 중 `tail -f`로 실시간 확인합니다.
+
+```bash
+nohup venv/bin/python -m streamlit run main.py \
+  --server.port 8501 \
+  --server.address 0.0.0.0 \
+  > streamlit.log 2>&1 &
+
+tail -f streamlit.log
+```
+
+로그에는 로그인, 답안 입력/선택, 결과 보기, 캐시 새로고침, 로그아웃 같은 사용자 조작 이벤트가 기록됩니다.
+
 ## 기본 로그인 정보
 
 ```txt
@@ -117,7 +131,8 @@ streamlit run main.py
 
 데모 영상에서는 다음 내용을 설명합니다.
 
-- 앱 첫 실행 화면
+- EC2 퍼블릭 IP로 접속한 앱 실행 화면
+- 앱 조작과 EC2 터미널 로그 동시 표시
 - 제출자 정보 확인
 - 로그인 기능 시연
 - 캐싱 기능 설명
